@@ -1,0 +1,11 @@
+{
+  "name": "video-push",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ivan-94/video-push.git",
+  "author": "ivan-94 <carney520@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-media-server": "^2.1.6"
+  }
+}
