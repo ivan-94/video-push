@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RTMP client</title>
+  </head>
+  <body>
+    <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+    <video id="video"></video>
+    <button id="play">play</button>
+    <script>
+      if (flvjs.isSupported()) {
+        const videoElement = document.getElementById('video');
+        const play = document.getElementById('play');
+
+        const flvPlayer = flvjs.createPlayer(
+          {
+            type: 'flv',
+            isLive: true,
+            hasAudio: false,
+            url: 'ws://localhost:8000/live/test.flv',
+          },
+          {
+            enableStashBuffer: true,
+            stashInitialSize: 128,
+          },
+        );
+
+        flvPlayer.attachMediaElement(videoElement);
+
+        play.onclick = () => {
+          flvPlayer.load();
+          flvPlayer.play();
+        };
+      }
+    </script>
+  </body>
+</html>

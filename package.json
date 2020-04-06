@@ -6,6 +6,7 @@
   "author": "ivan-94 <carney520@hotmail.com>",
   "license": "MIT",
   "dependencies": {
-    "node-media-server": "^2.1.6"
+    "node-media-server": "^2.1.6",
+    "stream-split": "^1.1.0"
   }
 }

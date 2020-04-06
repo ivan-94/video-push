@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Broadway</title>
+  </head>
+  <body>
+    <canvas id="video"></canvas>
+    <script src="./broadway.min.js"></script>
+
+    <script>
+      const video = document.getElementById('video');
+      const url = `ws://localhost:9999/pull/test`;
+      const player = new Player({
+        canvas: video,
+      });
+      const ws = new WebSocket(url);
+      ws.binaryType = 'arraybuffer';
+
+      ws.onmessage = function (evt) {
+        var data = evt.data;
+        if (typeof data !== 'string') {
+          player.decode(new Uint8Array(data));
+        } else {
+          console.log('get command from server: ', data);
+        }
+      };
+    </script>
+  </body>
+</html>
