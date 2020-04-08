@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSMpeg Worker</title>
+  </head>
+  <body>
+    <canvas id="video"></canvas>
+    <script>
+      const video = document.getElementById('video');
+      const wk = new Worker('./jsmpeg.worker.js');
+
+      wk.onmessage = (evt) => {
+        const data = evt.data;
+        switch (data.type) {
+          case 'ready':
+            // 创建 OffscreenCanvas 对象
+            const oc = video.transferControlToOffscreen();
+
+            wk.postMessage(
+              {
+                type: 'create',
+                data: {
+                  canvas: oc,
+                  url: 'ws://localhost:9999/pull/test',
+                },
+              },
+              [oc], // 注意这里
+            );
+
+            break;
+        }
+      };
+    </script>
+  </body>
+</html>
